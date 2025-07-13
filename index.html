@@ -11,6 +11,7 @@
             height: 100vh;
             background-color: #f0f0f0;
             font-family: Arial, sans-serif;
+            text-align: center;
         }
         #motto {
             font-size: 24px;
@@ -25,26 +26,22 @@
     <div id="motto">Motivasyon yükleniyor...</div>
 
     <script>
-        fetch('/motto')
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById('motto').textContent = data.motto;
+        const mottos = [
+            { text: "Bugün harika bir gün!", color: "#FFDDC1" },
+            { text: "Her gün yeni bir başlangıçtır.", color: "#C1FFD7" },
+            { text: "Küçük adımlar büyük başarı getirir.", color: "#C1E1FF" },
+            { text: "Kendine inan!", color: "#E1C1FF" },
+            { text: "Zorluklar seni güçlendirir.", color: "#FFC1C1" }
+        ];
 
-                 const colors = {
-            "Bugün harika bir gün!": "#FFDDC1",
-            "Her gün yeni bir başlangıçtır.": "#C1FFD7",
-            "Küçük adımlar büyük başarı getirir.": "#C1E1FF",
-            "Kendine inan!": "#E1C1FF",
-            "Zorluklar seni güçlendirir.": "#FFC1C1"
-        };
+        const day = new Date().getDate();
+        const index = day % mottos.length;
+        const todayMotto = mottos[index];
 
-        // Gelen mottoya göre background değiştir
-        document.body.style.backgroundColor = colors[data.motto] || "#f0f0f0";
-            })
-            .catch(() => {
-                document.getElementById('motto').textContent = "Motivasyon yüklenemedi.";
-            });
+        document.getElementById('motto').textContent = todayMotto.text;
+        document.body.style.backgroundColor = todayMotto.color;
     </script>
 </body>
 </html>
+
 
