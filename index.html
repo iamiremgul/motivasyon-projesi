@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Günlük Motivasyon</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+        #motto {
+            font-size: 24px;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body>
+    <div id="motto">Motivasyon yükleniyor...</div>
+
+    <script>
+        fetch('/motto')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('motto').textContent = data.motto;
+
+                 const colors = {
+            "Bugün harika bir gün!": "#FFDDC1",
+            "Her gün yeni bir başlangıçtır.": "#C1FFD7",
+            "Küçük adımlar büyük başarı getirir.": "#C1E1FF",
+            "Kendine inan!": "#E1C1FF",
+            "Zorluklar seni güçlendirir.": "#FFC1C1"
+        };
+
+        // Gelen mottoya göre background değiştir
+        document.body.style.backgroundColor = colors[data.motto] || "#f0f0f0";
+            })
+            .catch(() => {
+                document.getElementById('motto').textContent = "Motivasyon yüklenemedi.";
+            });
+    </script>
+</body>
+</html>
+
