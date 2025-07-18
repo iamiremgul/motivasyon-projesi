@@ -6,6 +6,7 @@
     <style>
         body {
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
@@ -13,16 +14,18 @@
             font-family: Arial, sans-serif;
             text-align: center;
         }
-        #motto {
+        #motto, #dateTime {
             font-size: 24px;
             background: white;
             padding: 20px;
+            margin: 10px;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.2);
         }
     </style>
 </head>
 <body>
+    <div id="dateTime">Tarih ve Saat yükleniyor...</div>
     <div id="motto">Motivasyon yükleniyor...</div>
 
     <script>
@@ -40,9 +43,19 @@
 
         document.getElementById('motto').textContent = todayMotto.text;
         document.body.style.backgroundColor = todayMotto.color;
+
+        function showDateTime() {
+            const now = new Date();
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            const dateStr = now.toLocaleDateString('tr-TR', options);
+            const timeStr = now.toLocaleTimeString('tr-TR');
+            document.getElementById('dateTime').textContent = `${dateStr} ${timeStr}`;
+        }
+
+        showDateTime();
+        setInterval(showDateTime, 1000);
     </script>
 </body>
 </html>
-
 
 
